@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&display=swap" rel="stylesheet">
+    <title>Run Tracker</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script defer src="index.js"></script>
+  
+</head>
+<body>
+    <h1> Run Tracker </h1>
+    <div id="search container">
+        <input type="text" class="search" placeholder="search by runner"> 
+        <button id="search_button"> Search</button>
+        <button id="refresh_button">Refresh</button>
+    </div>
+    
+    <div id="view_container">
+            <div class="runners"></div>
+        <h1> Logged Workouts </h1>
+        <div id="results_container">
+            <div class="workouts"></div>
+        </div>
+        <div id="edit_container">
+            <div id="runner_input_container">
+                <input type="text" class="name" placeholder="name">
+                <button id="runner_button">Add New Runner</button>
+            </div>
+            <div id="workout_input_container">
+                <input type="text" class="runner_id" placeholder="runner_id">
+                <input type="text" class="distance" placeholder="distance">
+                <input type="text" class="time" placeholder="time">
+                <input type="text" class="location" placeholder="location">
+                <input type="text" class="type" placeholder="type">
+                <button id="workout_button"> Add New Workout </button>
+            </div>
+    </div>
+</body>
+</html>

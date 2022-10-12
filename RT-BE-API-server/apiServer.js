@@ -99,6 +99,48 @@ app.get('/api/runners-workouts/name/:name', (req,res,err)=>{
     .catch((err)=>console.log('error'));
 });
 
+
+//route to post new runner to database
+app.post('/api/runners', (req,res)=>{
+    let newRunner=req.body;
+    if (newRunner.name && newRunner.name !=0 && typeof newRunner.age == 'number' && newRunner.age !=0){
+        client.query(`INSERT INTO runners (name) VALUES ('${newRunner.name}', ${newRunner.age})`,
+        (err)=>{
+            if(err){
+            console.log(err);
+        }else{
+            let newRunnerString = JSON.stringify(newRunner);
+            res.status(200);
+            res.send(`Runner information added to database: ${newRunnerString}`);
+            }
+        });
+    }else{
+        res.status(404);
+        res.send(`404 ERROR: Bad patch request please provide Runner's: name|age`)
+    }
+});
+ 
+//route to post new workout to database
+app.post('/api/workouts', (req,res)=>{
+let newWorkout = req.body;
+    if(newWorkout.runner_id && newWorkout.distance && newWorkout.time && newWorkout.location && newWorkout.type && typeof newWorkout.runner_id == 'number' && newWorkout.runner_id.length !=0 && typeof newWorkout.distance == 'number'&& newWorkout.distance.length !=0 && newWorkout.time.length !=0 && newWorkout.location.length !=0 && newWorkout.type.length !=0){
+        client.query(`INSERT INTO workouts (runner_id, distance, time, location, type) VALUES (${newWorkout.runner_id},${newWorkout.distance},'${newWorkout.time}','${newWorkout.location}','${newWorkout.type}')`,
+        (err)=>{
+            if(err){
+            console.log(err);
+        }else{
+            let newWorkoutString = JSON.stringify(newWorkout);
+            res.status(200);
+            res.send(`workout information added to database: ${newWorkoutString}`);
+            }
+        });
+    }else{
+        res.status(404);
+        res.send(`404 ERROR: Bad patch request please provide workout: runner_id|distance as number|time|location|type`);
+    }
+});
+
+
 //route to delete workout from database by id 
 app.delete('/api/workouts/:id', (req,res)=>{
     client.query(`SELECT * FROM workouts WHERE workout_id = ${req.params.id}`)
