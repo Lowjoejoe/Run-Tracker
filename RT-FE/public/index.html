@@ -22,15 +22,19 @@
     </div>
     
     <div id="view_container">
-            <div class="runners"></div>
+            <div class="registered_runners"></div>
+            
         <h1> Logged Workouts </h1>
         <div id="results_container">
+            <div class="runners"></div>
             <div class="workouts"></div>
         </div>
         <div id="edit_container">
             <div id="runner_input_container">
                 <input type="text" class="name" placeholder="name">
+                <input type="text" class="age" placeholder="age">
                 <button id="runner_button">Add New Runner</button>
+                <button id="delete_runner_button">Delete Runner</button>
             </div>
             <div id="workout_input_container">
                 <input type="text" class="runner_id" placeholder="runner_id">
@@ -39,6 +43,7 @@
                 <input type="text" class="location" placeholder="location">
                 <input type="text" class="type" placeholder="type">
                 <button id="workout_button"> Add New Workout </button>
+                <button id="delete_workout_button">Remove Workout</button>
             </div>
     </div>
 </body>

@@ -104,7 +104,7 @@ app.get('/api/runners-workouts/name/:name', (req,res,err)=>{
 app.post('/api/runners', (req,res)=>{
     let newRunner=req.body;
     if (newRunner.name && newRunner.name !=0 && typeof newRunner.age == 'number' && newRunner.age !=0){
-        client.query(`INSERT INTO runners (name) VALUES ('${newRunner.name}', ${newRunner.age})`,
+        client.query(`INSERT INTO runners (name, age) VALUES ('${newRunner.name}', ${newRunner.age})`,
         (err)=>{
             if(err){
             console.log(err);
@@ -122,8 +122,8 @@ app.post('/api/runners', (req,res)=>{
  
 //route to post new workout to database
 app.post('/api/workouts', (req,res)=>{
-let newWorkout = req.body;
-    if(newWorkout.runner_id && newWorkout.distance && newWorkout.time && newWorkout.location && newWorkout.type && typeof newWorkout.runner_id == 'number' && newWorkout.runner_id.length !=0 && typeof newWorkout.distance == 'number'&& newWorkout.distance.length !=0 && newWorkout.time.length !=0 && newWorkout.location.length !=0 && newWorkout.type.length !=0){
+    let newWorkout = req.body;
+    if(newWorkout.runner_id && newWorkout.distance && newWorkout.time && newWorkout.location && newWorkout.type && typeof newWorkout.runner_id == 'number' && typeof newWorkout.distance == 'number' && newWorkout.time.length !=0 && newWorkout.location.length !=0 && newWorkout.type.length !=0){
         client.query(`INSERT INTO workouts (runner_id, distance, time, location, type) VALUES (${newWorkout.runner_id},${newWorkout.distance},'${newWorkout.time}','${newWorkout.location}','${newWorkout.type}')`,
         (err)=>{
             if(err){
@@ -158,19 +158,19 @@ app.delete('/api/workouts/:id', (req,res)=>{
     })
 });
 
-//route to delete runner from database by id 
-app.delete('/api/runners/:id', (req,res)=>{
-    client.query(`SELECT * FROM runners WHERE runner_id = ${req.params.id}`)
+//route to delete runner from database by name
+app.delete('/api/runners/:name', (req,res)=>{
+    client.query(`SELECT * FROM runners WHERE name = '${req.params.id}'`)
     .then(results=>{
         if (results.rows.length == 0){
             res.status(404);
             res.send(`Runner doesn't exist in the database`);
             return;
         }else{
-            let deletedWorkout = JSON.stringify(results.rows);
+            let deletedRunner = JSON.stringify(results.rows);
             res.status(200);
-            res.send(`Runner data deleted from database ${deletedWorkout}`);
-            client.query(`DELETE FROM runners WHERE id = ${req.params.id}`);
+            res.send(`Runner data deleted from database ${deletedRunner}`);
+            client.query(`DELETE FROM runners WHERE name = '${req.params.id}'`);
         }
     })
 });
