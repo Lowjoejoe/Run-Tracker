@@ -107,7 +107,8 @@ document.querySelector("#runner_button").addEventListener("click",()=>{
 
 
 //event listener to add new workout to the data base 
-document.querySelector("#workout_button").addEventListener("click",()=>{
+document.querySelector("#workout_button").addEventListener("click",(e)=>{
+    e.preventDefault();
     let runnerId= document.querySelector('.runner_id').value;
     let workoutDistance = document.querySelector('.distance').value;
     let workoutTime=document.querySelector('.time').value;
@@ -115,19 +116,19 @@ document.querySelector("#workout_button").addEventListener("click",()=>{
     let workoutType= document.querySelector('.type').value;
 
     let newWorkout= {
-        'runner_Id': Number(runnerId),
+        'runner_id': Number(runnerId),
         'distance': Number(workoutDistance),
         'time': workoutTime,
         'location': workoutLocation,
         'type':workoutType
     }
     console.log(newWorkout);
-    if (runnerId== '' && workoutDistance =='' && workoutTime =='' && workoutLocation =='' && workoutType ==''){
-        console.log('error need to fill input fields');
-    }else{
-        fetch(`${ApiUrl}/api/workouts`, {
+    // if (runnerId== '' && workoutDistance =='' && workoutTime =='' && workoutLocation =='' && workoutType ==''){
+        // console.log('error need to fill input fields');
+    // }else{
+        fetch(`${ApiUrl}/api/postworkouts`, {
             method:'POST',
-            mode: 'cors',
+            // mode: 'cors',
             headers: {'Content-Type':'application/json'},
             body: JSON.stringify(newWorkout)
         })
@@ -138,8 +139,10 @@ document.querySelector("#workout_button").addEventListener("click",()=>{
                 alert("something went wrong!",response);
             }
         })
-    }
-})
+    });
+// })
+
+
 
 //event listner to delete runners from the database 
 document.querySelector("#delete_runner_button").addEventListener("click",()=>{

@@ -121,8 +121,9 @@ app.post('/api/runners', (req,res)=>{
 });
  
 //route to post new workout to database
-app.post('/api/workouts', (req,res)=>{
+app.post('/api/postworkouts', (req,res)=>{
     let newWorkout = req.body;
+    console.log(newWorkout);
     if(newWorkout.runner_id && newWorkout.distance && newWorkout.time && newWorkout.location && newWorkout.type && typeof newWorkout.runner_id == 'number' && typeof newWorkout.distance == 'number' && newWorkout.time.length !=0 && newWorkout.location.length !=0 && newWorkout.type.length !=0){
         client.query(`INSERT INTO workouts (runner_id, distance, time, location, type) VALUES (${newWorkout.runner_id},${newWorkout.distance},'${newWorkout.time}','${newWorkout.location}','${newWorkout.type}')`,
         (err)=>{
